@@ -1,0 +1,88 @@
+
+# Personality Score Estimator: Mathematical Formulation
+
+## 1. Prospect Theory Utility
+
+Let:
+- \( G \): potential gain  
+- \( L \): potential loss  
+- \( p_{\text{win}} \), \( p_{\text{loss}} \): probabilities of gain/loss  
+- \( \theta \): ambiguity preference  
+- \( \Lambda \): loss aversion  
+- \( \alpha, \beta \): risk sensitivity  
+- \( \gamma \): probability distortion
+
+### a. Effective Probabilities (with Ambiguity)
+\[
+\eta_{\text{gain}} = \text{clip}(p_{\text{win}} + (1 - p_{\text{win}} - p_{\text{loss}})\cdot \theta, 0, 1)
+\]
+\[
+\eta_{\text{loss}} = \text{clip}(p_{\text{loss}} + (1 - p_{\text{win}} - p_{\text{loss}})\cdot (1 - \theta), 0, 1)
+\]
+
+### b. Subjective Probability Transformation
+\[
+\pi(p) = \frac{p^\gamma}{\left(p^\gamma + (1 - p)^\gamma\right)^{1/\gamma}}
+\]
+
+### c. Subjective Value Transformation
+\[
+v(x) =
+\begin{cases}
+x^\alpha & \text{if } x \geq 0 \\
+- \Lambda (-x)^\beta & \text{if } x < 0
+\end{cases}
+\]
+
+### d. Utility of the Gamble
+\[
+U = v(G)\cdot \pi(\eta_{\text{gain}}) + v(-L)\cdot \pi(\eta_{\text{loss}})
+\]
+
+---
+
+## 2. Investment Decision Model
+
+Given a binary decision \( y \in \{0, 1\} \):
+
+### a. Decision Probability
+\[
+P(y = 1 | U) = \frac{1}{1 + \exp(-\tau (U - \epsilon))}
+\]
+\[
+P(y = 0 | U) = 1 - P(y = 1 | U)
+\]
+
+Where:
+- \( \tau \): sensitivity to utility
+- \( \epsilon \): decision noise
+
+---
+
+## 3. Log-Likelihood Function
+
+Given observed data \( D \) and parameters \( \Theta = [\theta, \Lambda, \tau, \alpha, \gamma, \epsilon] \):
+
+\[
+\mathcal{L}(\Theta | D) = -\left(
+\sum_i \log P(y_i | x_i, \Theta)
++ \sum_{p \in \Theta \setminus \{\epsilon\}} \log \text{LogNorm}(p)
++ \log \text{Norm}(\epsilon)
+\right)
+\]
+
+This log-likelihood is minimized using numerical optimization.
+
+---
+
+## Summary of Functions
+
+| Function | Description |
+|----------|-------------|
+| `estimate_DM_parameters` | Optimizes parameters using `minimize` |
+| `log_likelihood_subject` | Computes full log-likelihood |
+| `calc_pt_utility` | Computes utility using prospect theory |
+| `calc_subj_prob` | Transforms probabilities |
+| `calc_subj_values` | Computes subjective values |
+| `calc_prob_invest_data` | Computes decision probabilities |
+| `likelihood_data` | Integrates utility and sigmoid model |
