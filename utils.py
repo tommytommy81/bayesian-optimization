@@ -1,8 +1,71 @@
 
 # Import necessary libraries
-import pandas as pd
+# List of all functions in the provided code:
+
+# # Docstrings for each function:
+# def stan_wrapper(df, x0, INIT_VALUES=INIT_VALUES, FACTOR=1, beta=0.88):
+#     Prepares data and runs a Stan model for Bayesian inference on investment decisions.
+#     Parameters:
+#         df (pd.DataFrame): Input data containing columns ['gain', 'loss', 'prob_win', 'prob_loss', 'prob_ambi', 'invest'].
+#         x0 (list): List of initial values for the model's hyperparameters.
+#         INIT_VALUES (list, optional): Initial values for Stan model parameters. Defaults to INIT_VALUES.
+#         FACTOR (float, optional): Scaling factor for gain/loss values. Defaults to 1.
+#         beta (float, optional): Exponent for loss aversion in the utility function. Defaults to 0.88.
+#     Returns:
+#         stan_fit: Fitted Stan model object containing posterior samples.
+#     Visualizes the output of the Stan model by plotting posterior distributions and printing summary statistics.
+#     Parameters:
+#         stan_fit: Fitted Stan model object containing posterior samples.
+#         figure_flag (bool, optional): Whether to plot posterior distributions. Defaults to True.
+#     Returns:
+#         None
+#     Generates predictions for investment decisions using the fitted Stan model.
+#     Parameters:
+#         stan_fit: Fitted Stan model object containing posterior samples.
+#         df (pd.DataFrame): Input data for prediction.
+#         FACTOR (float, optional): Scaling factor for gain/loss values. Defaults to 1.
+#     Returns:
+#         list: Predicted investment decisions (0 or 1) for each row in df.
+#     Fits a Bayesian model using PyMC for investment decision data.
+#     Parameters:
+#         df (pd.DataFrame): Input data containing columns ['gain', 'loss', 'prob_win', 'prob_loss', 'prob_ambi', 'invest'].
+#         distro_estimates (dict): Dictionary of prior distribution parameters for each model parameter.
+#         INIT_VALUES (list): Initial values for model parameters.
+#         FACTOR (float, optional): Scaling factor for gain/loss values. Defaults to 1.
+#         beta (float, optional): Exponent for loss aversion in the utility function. Defaults to 0.88.
+#         energy_plot_flag (bool, optional): Whether to plot the energy plot. Defaults to True.
+#         distri_plot_flag (bool, optional): Whether to plot posterior traces. Defaults to True.
+#     Returns:
+#         trace: PyMC InferenceData object containing posterior samples.
+#     Generates predictions for investment decisions using the fitted PyMC model.
+#     Parameters:
+#         trace: PyMC InferenceData object containing posterior samples.
+#         df (pd.DataFrame): Input data for prediction.
+#         FACTOR (float, optional): Scaling factor for gain/loss values. Defaults to 1.
+#         beta (float, optional): Exponent for loss aversion in the utility function. Defaults to 0.88.
+#     Returns:
+#         list: Predicted investment decisions (0 or 1) for each row in df.
+#     Fits a model to investment decision data using maximum likelihood estimation.
+#     Parameters:
+#         df (pd.DataFrame): Input data containing columns ['gain', 'loss', 'prob_win', 'prob_loss', 'prob_ambi', 'invest'].
+#         x0 (list): Initial parameter values for optimization.
+#         distro_estimates (dict): Dictionary of prior distribution parameters for each model parameter.
+#     Returns:
+#         OptimizeResult: Result of the optimization containing estimated parameters.
+#     Generates predictions for investment decisions using parameters estimated by maximum likelihood.
+#     Parameters:
+#         estimates: Optimization result object containing estimated parameters.
+#         df (pd.DataFrame): Input data for prediction.
+#         FACTOR (float, optional): Scaling factor for gain/loss values. Defaults to 1.
+#         beta (float, optional): Exponent for loss aversion in the utility function. Defaults to 0.88.
+#     Returns:
+#         list: Predicted investment decisions (0 or 1) for each row in df.
+        
+        
+        
+        
 import numpy as np
-import pickle
+import pandas as pd
 import matplotlib.pyplot as plt
 
 import pymc as pm
@@ -20,9 +83,18 @@ from sklearn.metrics import roc_auc_score
 
 import time
 
+THETA_INIT = 0.42
+LAMBDA_INIT = 1.6
+TAU_INIT = .28
+ALPHA_INIT = .9
+GAMMA_INIT = .7
+ERROR_INIT = 0
 
 
-def stan_wrapper(df, x0, FACTOR=1, beta = 0.88):
+INIT_VALUES = np.array([THETA_INIT, LAMBDA_INIT, TAU_INIT, ALPHA_INIT, GAMMA_INIT, ERROR_INIT])
+
+# STAN model 
+def stan_wrapper(df, x0, INIT_VALUES=INIT_VALUES, FACTOR=1, beta = 0.88):
     """
     Wrapper function to prepare data for Stan model.
     """
@@ -70,17 +142,15 @@ def stan_wrapper(df, x0, FACTOR=1, beta = 0.88):
     nest_asyncio.apply()
 
 
-    # # Set initial values for the parameters
-    # init_values = {
-    #     'theta': 0,
-    #     'Lambda': LAMBDA_INIT,
-    #     'tau': TAU_INIT,
-    #     'alpha': ALPHA_INIT,
-    #     'gamma': GAMMA_INIT,
-    #     'error': ERROR_INIT
-    # }
-
-
+    # Convert init_values to a dictionary for Stan
+    init_values = {
+        'theta': INIT_VALUES[0],
+        'Lambda': INIT_VALUES[1],
+        'tau': INIT_VALUES[2],
+        'alpha': INIT_VALUES[3],
+        'gamma': INIT_VALUES[4],
+        'error': INIT_VALUES[5]
+    }
 
     # Update Stan model code to accept beta as data
     stan_model_code = """
@@ -142,7 +212,7 @@ def stan_wrapper(df, x0, FACTOR=1, beta = 0.88):
     posterior = stan.build(stan_model_code, data=stan_data)
 
     # Fit the model
-    stan_fit = posterior.sample(num_chains=4, num_samples=1000)
+    stan_fit = posterior.sample(num_chains=4, num_samples=1000, init=[init_values]*4)
     
     return stan_fit
 
@@ -218,8 +288,7 @@ def stan_predict(stan_fit, df, FACTOR=1):
 
 
 
-# Helper functions rewritten for Aesara tensors
-
+# PYMC model
 def pymc_wrapper(df, distro_estimates, INIT_VALUES, FACTOR=1, beta=0.88, energy_plot_flag=True, distri_plot_flag=True):
     """
     Wrapper function for PyMC model fitting.
@@ -305,9 +374,54 @@ def pymc_wrapper(df, distro_estimates, INIT_VALUES, FACTOR=1, beta=0.88, energy_
 
         # Likelihood
         invest_obs = pm.Bernoulli('invest_obs', p=p, observed=invest)
-
-        # Sample from the posterior
+        
         trace = pm.sample(5000, tune=5000, target_accept=0.9, chains=4, initvals=initvals, return_inferencedata=True)
+
+        
+        # # Define batch_size and max_draws for sampling
+        # batch_size = 1000
+        # max_draws = 5000
+        # draws = 0
+        # converged = False
+        # trace = None
+
+        # while draws < max_draws and not converged:
+        #     new_trace = pm.sample(
+        #         draws=batch_size,
+        #         tune=0 if trace is not None else batch_size,
+        #         target_accept=0.9,
+        #         chains=4,
+        #         initvals=initvals if trace is None else None,
+        #         return_inferencedata=True,
+        #         progressbar=True
+        #     )
+        #     # Concatenate traces
+        #     if trace is None:
+        #         trace = new_trace
+        #     trace = az.concat(trace, new_trace, dim="draw")
+
+        #     draws += batch_size
+
+        #     # Check convergence using r_hat
+        #     summary = az.summary(trace, var_names=["theta", "Lambda", "tau", "alpha", "gamma", "error"])
+        #     r_hat = summary['r_hat'].max()
+        #     print(f"Draws: {draws}, max r_hat: {r_hat:.3f}")
+        #     if r_hat < 1.01:
+        #         converged = True
+
+        # if not converged:
+        #     print("Warning: Maximum draws reached before convergence.")
+
+        #     # Check convergence using r_hat
+        #     summary = az.summary(trace, var_names=["theta", "Lambda", "tau", "alpha", "gamma", "error"])
+        #     r_hat = summary['r_hat'].max()
+        #     print(f"Draws: {draws}, max r_hat: {r_hat:.3f}")
+        #     if r_hat < 1.01:
+        #         converged = True
+
+        # if not converged:
+        #     print("Warning: Maximum draws reached before convergence.")
+
 
         if energy_plot_flag:
             az.plot_energy(trace)
@@ -377,8 +491,7 @@ def pymc_predict(trace, df, FACTOR=1, beta=0.88):
     return predictions
 
 
-
-
+# MLS model
 def MLS_wrapper(df, x0, distro_estimates):
     
     # Calculate eta (perceived probability of a successful investment due ambiguity).
@@ -475,9 +588,65 @@ def MLS_wrapper(df, x0, distro_estimates):
             lognormal_values[par] = lognormal_pdf(parameters[par], distro_estimates['mu'][par], distro_estimates['sigma'][par])
         normal_values = normal_pdf(parameters['error'], 0, distro_estimates['sigma']['error'])
         # take the log of the values and sum it
-        return -(np.log(df['ll_data']).sum() + np.log(lognormal_values['theta']) + np.log(lognormal_values['Lambda']) + np.log(lognormal_values['tau']) + np.log(lognormal_values['alpha']) + np.log(lognormal_values['gamma']) + np.log(normal_values))
-
+        # take the log of the values and sum it
+        logsum = -(
+            np.log(df['ll_data']).sum()
+            + np.log(lognormal_values['theta'])
+            + np.log(lognormal_values['Lambda'])
+            + np.log(lognormal_values['tau'])
+            + np.log(lognormal_values['alpha'])
+            + np.log(lognormal_values['gamma'])
+            + np.log(normal_values)
+        )
+        return logsum
 
     estimates = minimize(log_likelihood_subject, x0, args=(df, distro_estimates), method='nelder-mead', options={'xatol': 1e-8, 'disp': True, 'maxfev':1e5})
     
     return estimates
+
+
+def minimize_predict(estimates, df, FACTOR=1, beta=0.88):
+    """
+    Function to predict using the PyMC model trace.
+    """
+    # Extract the mean of the posterior samples for each parameter
+    theta, Lambda, tau, alpha, gamma, error = estimates.x
+        
+
+    predictions = []
+
+    for _, row in df.iterrows():
+        gain = row['gain'] * FACTOR
+        loss = row['loss'] * FACTOR 
+        prob_win = row['prob_win']
+        prob_loss = row['prob_loss']
+        prob_ambi = row['prob_ambi']
+
+        def np_calc_subj_values(x, Lambda, alpha, beta):
+            return x**alpha if x >= 0 else -Lambda * ((-x)**beta)
+
+        def np_calc_eta(green, red, theta, prob_ambi):
+            return green + prob_ambi * theta
+
+        def np_calc_subj_prob(prob, gamma):
+            return prob**gamma / (prob**gamma + (1 - prob)**gamma)**(1/gamma)
+
+        prob_g = np.clip(np_calc_eta(prob_win, prob_loss, theta, prob_ambi), 0, 1)
+        prob_l = np.clip(np_calc_eta(prob_loss, prob_win, 1-theta, prob_ambi), 0, 1)
+        subj_gain = np_calc_subj_values(gain, Lambda, alpha, beta)
+        subj_loss = np_calc_subj_values(loss, Lambda, alpha, beta)
+        subj_prob_g = np_calc_subj_prob(prob_g, gamma)
+        subj_prob_l = np_calc_subj_prob(prob_l, gamma)
+        utility = subj_gain * subj_prob_g + subj_loss * subj_prob_l
+
+        # Probability to invest
+        p_invest = 1 / (1 + np.exp(-tau * (utility - error)))
+        
+        # Predict invest = 1 if p_invest > 0.5, else 0
+        invest_pred = int(p_invest > 0.5)
+        predictions.append(invest_pred)
+
+    return predictions
+
+
+ 
