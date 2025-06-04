@@ -263,6 +263,7 @@ def stan_predict(stan_fit, df, FACTOR=1):
         def np_calc_subj_values(x, Lambda, alpha, beta):
             return x**alpha if x >= 0 else -Lambda * ((-x)**beta)
 
+
         def np_calc_eta(green, red, theta, prob_ambi):
             return green + prob_ambi * theta
 
@@ -494,6 +495,80 @@ def pymc_predict(trace, df, FACTOR=1, beta=0.88):
 # MLS model
 def MLS_wrapper(df, x0, distro_estimates):
     
+    # # Calculate eta (perceived probability of a successful investment due ambiguity).
+    # def calc_eta(green, red, theta, prob_ambi=None):
+    #     ''' Calculates the eta given prob_win, prob_loss, and ambiguity. theta is estimated.'''
+    #     if prob_ambi==None:
+    #         return round(green + (1-green-red)*theta,3)
+    #     else:
+    #         # if prob_ambi+red+green!=1:
+    #         #     print(f'Probabilities do not add up to 0: {prob_ambi+red+green}')
+    #         return round(green + prob_ambi*theta,3)
+
+    # # Calculate subject probability (using the perceived eta).
+    # def calc_subj_prob(prob, gamma=1):
+    #     ''' Converts the preceived probabilities to subjective probability. gamma is estimated.'''
+    #     return prob**gamma/(prob**gamma + (1-prob)**gamma)**(1/gamma)
+
+    # # Calculating the subjective value of losses and gains. Lambda estimated
+    # def calc_subj_values(x, Lambda, alpha, beta):
+    #     ''' Calculates the subjective value of gains and losses, given an alpha parameter. Lambda estimate. Alpha could be estimated but used as constant=0.9.'''
+    #     if x >= 0:
+    #         return x**alpha
+    #     else:
+    #         return -Lambda*(-x)**beta
+
+    # # Calculating prospect utility.
+    # def calc_pt_utility(gain, loss, prob_win, prob_loss, theta, Lambda, alpha, beta, gamma=1, prob_ambi=None):
+    #     ''' Calculates the prospect theory utility of investing. Losses are negative numbers and we just add all the outcomes*probabilities.'''
+    #     # print(max(0,calc_eta(prob_win, prob_loss, theta, prob_ambi)))
+    #     # print(min(max(0,calc_eta(prob_win, prob_loss, theta, prob_ambi)),1))
+    #     prob_g = calc_eta(prob_win, prob_loss, theta, prob_ambi).clip(0,1)
+    #     prob_l = calc_eta(prob_loss, prob_win, 1-theta, prob_ambi).clip(0,1)
+    #     pt_u   = calc_subj_values(gain, Lambda, alpha, beta) * calc_subj_prob(prob_g, gamma=gamma) + calc_subj_values(loss, Lambda, alpha, beta) * calc_subj_prob(prob_l, gamma=gamma)
+    #     return pt_u
+
+    # # Calculating the probability to invest.
+    # def calc_prob_invest_data(invest,utility,tau,error):
+    #     yy = 2*invest-1
+    #     return (1)/(1+np.exp(-tau*(utility-error)*yy))
+
+    # # classify whether somebody invests or not.
+    # def likelihood_data(invest,gain, loss, prob_win, prob_loss, theta, Lambda, tau, alpha, beta, gamma,error):
+    #     ''' Function to determine if someone would invest in the gamble given theta, gamma, lambda, and tau.'''
+    #     utility = calc_pt_utility(gain, loss, prob_win, prob_loss, theta, Lambda, alpha, beta, gamma)
+    #     probability = calc_prob_invest_data(invest,utility,tau, error)
+    #     return probability
+    
+    
+    # def lognormal_pdf(value, mu, sigma):
+    #     ''' Function to calculate the lognormal density'''
+    #     shape  = sigma
+    #     loc    = 0
+    #     scale  = np.exp(mu)
+    #     return lognorm.pdf(value, shape, loc, scale)
+
+    # def normal_pdf(value, mu, sigma):
+    #     ''' Function to calculate the lognormal density'''
+    #     loc    = 0
+    #     scale  = sigma
+    #     return norm.pdf(value, loc, scale)
+    
+    
+    def lognormal_pdf(value, mu, sigma):
+        ''' Function to calculate the lognormal density'''
+        shape  = sigma
+        loc    = 0
+        scale  = np.exp(mu)
+        return lognorm.pdf(value, shape, loc, scale)
+
+    def normal_pdf(value, mu, sigma):
+        ''' Function to calculate the lognormal density'''
+        loc    = 0
+        scale  = sigma
+        return norm.pdf(value, loc, scale)
+
+    ## Functions for calculating the probability
     # Calculate eta (perceived probability of a successful investment due ambiguity).
     def calc_eta(green, red, theta, prob_ambi=None):
         ''' Calculates the eta given prob_win, prob_loss, and ambiguity. theta is estimated.'''
@@ -538,21 +613,6 @@ def MLS_wrapper(df, x0, distro_estimates):
         utility = calc_pt_utility(gain, loss, prob_win, prob_loss, theta, Lambda, alpha, beta, gamma)
         probability = calc_prob_invest_data(invest,utility,tau, error)
         return probability
-    
-    
-    def lognormal_pdf(value, mu, sigma):
-        ''' Function to calculate the lognormal density'''
-        shape  = sigma
-        loc    = 0
-        scale  = np.exp(mu)
-        return lognorm.pdf(value, shape, loc, scale)
-
-    def normal_pdf(value, mu, sigma):
-        ''' Function to calculate the lognormal density'''
-        loc    = 0
-        scale  = sigma
-        return norm.pdf(value, loc, scale)
-
 
 
     def log_likelihood_subject(param_list, sub_df, distro_estimates):
@@ -633,6 +693,7 @@ def minimize_predict(estimates, df, FACTOR=1, beta=0.88):
 
         prob_g = np.clip(np_calc_eta(prob_win, prob_loss, theta, prob_ambi), 0, 1)
         prob_l = np.clip(np_calc_eta(prob_loss, prob_win, 1-theta, prob_ambi), 0, 1)
+        
         subj_gain = np_calc_subj_values(gain, Lambda, alpha, beta)
         subj_loss = np_calc_subj_values(loss, Lambda, alpha, beta)
         subj_prob_g = np_calc_subj_prob(prob_g, gamma)
@@ -642,9 +703,11 @@ def minimize_predict(estimates, df, FACTOR=1, beta=0.88):
         # Probability to invest
         p_invest = 1 / (1 + np.exp(-tau * (utility - error)))
         
+
         # Predict invest = 1 if p_invest > 0.5, else 0
         invest_pred = int(p_invest > 0.5)
         predictions.append(invest_pred)
+        
 
     return predictions
 

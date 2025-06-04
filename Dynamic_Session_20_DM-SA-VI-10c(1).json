@@ -1,0 +1,1194 @@
+{
+  "cost": 10,
+  "assessment_type": "SHARED",
+  "id": 17,
+  "blocks": [
+    {
+      "block_id": "start_assessment",
+      "section_number": 1,
+      "parameters": {
+        "duration": 20,
+        "title_key": "START_ASSESSMENT_HEADER",
+        "text_key": "START_ASSESSMENT_TEXT",
+        "image_key": "StartAssessmentImg.svg"
+      }
+    },
+    {
+      "block_id": "dynamic_info",
+      "section_number": 1,
+      "parameters": {
+        "components": [
+          {
+            "title_key": "DM_HEADER_PAGE1_STYLES",
+            "text_key": "INSTRUCTIONS_FOR_DM_PAGE1",
+            "image_key": "InstructionImage01.svg"
+          },
+          {
+            "title_key": "DM_HEADER_PAGE2_SITUATION",
+            "text_key": "INSTRUCTIONS_FOR_DM_PAGE2",
+            "image_key": "InstructionImage02.svg"
+          },
+          {
+            "title_key": "DM_HEADER_PAGE3_GAIN_AND_LOSES",
+            "text_key": "INSTRUCTIONS_FOR_DM_PAGE3",
+            "image_key": "DM_Intro_20241120_lossgain.svg"
+          },
+          {
+            "title_key": "DM_HEADER_PAGE4_SUCCESS_FAILURE",
+            "text_key": "INSTRUCTIONS_FOR_DM_PAGE4",
+            "image_key": "DM_Intro_20241120_chances.svg"
+          },
+          {
+            "title_key": "DM_HEADER_PAGE5_OPPORTUNITIES",
+            "text_key": "INSTRUCTIONS_FOR_DM_PAGE5",
+            "image_key": "DM_Intro_20241120_invest.svg"
+          },
+          {
+            "title_key": "DM_HEADER_PAGE6_PRACTICE",
+            "text_key": "INSTRUCTIONS_FOR_DM_PAGE6_PRACTICE",
+            "image_key": "InstructionImage06.svg"
+          }
+        ]
+      }
+    },
+    {
+      "block_id": "decision_making_practice",
+      "section_number": 1,
+      "parameters": {
+        "inheritance": 10000,
+        "currency": "$",
+        "dimension_key": {
+          "uncertainty": "DM_TASK_UNCERTAINTY",
+          "gain": "DM_TASK_GAIN",
+          "loss": "DM_TASK_LOSS",
+          "success": "DM_TASK_SUCCESS",
+          "failure": "DM_TASK_FAILURE"
+        },
+        "decision_keys": {
+          "invest": "INVEST_BUTTON",
+          "no_invest": "DO_NOT_INVEST_BUTTON"
+        },
+        "investment_result_keys": {
+          "invested": "INVESTED",
+          "not_invested": "NOT_INVESTED",
+          "trials_name": "COMPANY",
+          "sector_name": "SECTOR_RESULT"
+        },
+        "trials": [
+          {
+            "probability_win": 40,
+            "probability_loss": 30,
+            "gain": 60,
+            "loss": 20,
+            "success": 1,
+            "probability_ambiguity": 30
+          },
+          {
+            "probability_win": 50,
+            "probability_loss": 30,
+            "gain": 70,
+            "loss": 50,
+            "success": 0,
+            "probability_ambiguity": 20
+          },
+          {
+            "probability_win": 20,
+            "probability_loss": 30,
+            "gain": 50,
+            "loss": 30,
+            "success": 1,
+            "probability_ambiguity": 50
+          }
+        ]
+      }
+    },
+    {
+      "block_id": "combined_calibration",
+      "section_number": 1,
+      "parameters": {
+        "skip_qc_time_min": 2,
+        "check_skip_qc_logic": false
+      }
+    },
+    {
+      "block_id": "decision_making",
+      "section_number": 2,
+      "parameters": {
+        "inheritance": 10000,
+        "currency": "$",
+        "dimension_key": {
+          "uncertainty": "DM_TASK_UNCERTAINTY",
+          "gain": "DM_TASK_GAIN",
+          "loss": "DM_TASK_LOSS",
+          "success": "DM_TASK_SUCCESS",
+          "failure": "DM_TASK_FAILURE"
+        },
+        "decision_keys": {
+          "invest": "INVEST_BUTTON",
+          "no_invest": "DO_NOT_INVEST_BUTTON"
+        },
+        "investment_result_keys": {
+          "invested": "INVESTED",
+          "not_invested": "NOT_INVESTED",
+          "trials_name": "COMPANY",
+          "sector_name": "SECTOR_RESULT"
+        },
+        "components": [
+          {
+            "sector_key": "AGRICULTURE_SECTOR",
+            "sector_length": 10,
+            "sector_text_key": "SECTOR_INSTRUCTION",
+            "sector_results_key_big": "SECTOR_DESCRIPTION_RESULT_INV_BIG",
+            "sector_results_key_less": "SECTOR_DESCRIPTION_RESULT_INV_LESS",
+            "sector_results_key_equal": "SECTOR_DESCRIPTION_RESULT_INV_EQUAL",
+            "trials": [
+              {
+                "probability_win": 50,
+                "probability_loss": 0,
+                "gain": 100,
+                "loss": 80,
+                "success": 1,
+                "probability_ambiguity": 50
+              },
+              {
+                "probability_win": 10,
+                "probability_loss": 20,
+                "gain": 60,
+                "loss": 40,
+                "success": 0,
+                "probability_ambiguity": 70
+              },
+              {
+                "probability_win": 40,
+                "probability_loss": 50,
+                "gain": 100,
+                "loss": 30,
+                "success": 0,
+                "probability_ambiguity": 10
+              },
+              {
+                "probability_win": 10,
+                "probability_loss": 30,
+                "gain": 50,
+                "loss": 20,
+                "success": 1,
+                "probability_ambiguity": 60
+              },
+              {
+                "probability_win": 50,
+                "probability_loss": 50,
+                "gain": 70,
+                "loss": 70,
+                "success": 1,
+                "probability_ambiguity": 0
+              },
+              {
+                "probability_win": 10,
+                "probability_loss": 80,
+                "gain": 40,
+                "loss": 10,
+                "success": 0,
+                "probability_ambiguity": 10
+              },
+              {
+                "probability_win": 50,
+                "probability_loss": 0,
+                "gain": 30,
+                "loss": 70,
+                "success": 1,
+                "probability_ambiguity": 50
+              },
+              {
+                "probability_win": 10,
+                "probability_loss": 70,
+                "gain": 60,
+                "loss": 20,
+                "success": 1,
+                "probability_ambiguity": 20
+              },
+              {
+                "probability_win": 20,
+                "probability_loss": 50,
+                "gain": 90,
+                "loss": 20,
+                "success": 1,
+                "probability_ambiguity": 30
+              },
+              {
+                "probability_win": 30,
+                "probability_loss": 20,
+                "gain": 90,
+                "loss": 70,
+                "success": 0,
+                "probability_ambiguity": 50
+              }
+            ]
+          },
+          {
+            "sector_key": "TRANSPORTATION_SECTOR",
+            "sector_length": 10,
+            "sector_text_key": "SECTOR_INSTRUCTION",
+            "sector_results_key_big": "SECTOR_DESCRIPTION_RESULT_INV_BIG",
+            "sector_results_key_less": "SECTOR_DESCRIPTION_RESULT_INV_LESS",
+            "sector_results_key_equal": "SECTOR_DESCRIPTION_RESULT_INV_EQUAL",
+            "trials": [
+              {
+                "probability_win": 10,
+                "probability_loss": 10,
+                "gain": 80,
+                "loss": 40,
+                "success": 1,
+                "probability_ambiguity": 80
+              },
+              {
+                "probability_win": 0,
+                "probability_loss": 40,
+                "gain": 30,
+                "loss": 10,
+                "success": 0,
+                "probability_ambiguity": 60
+              },
+              {
+                "probability_win": 50,
+                "probability_loss": 40,
+                "gain": 70,
+                "loss": 60,
+                "success": 0,
+                "probability_ambiguity": 10
+              },
+              {
+                "probability_win": 0,
+                "probability_loss": 30,
+                "gain": 80,
+                "loss": 30,
+                "success": 0,
+                "probability_ambiguity": 70
+              },
+              {
+                "probability_win": 30,
+                "probability_loss": 0,
+                "gain": 80,
+                "loss": 50,
+                "success": 1,
+                "probability_ambiguity": 70
+              },
+              {
+                "probability_win": 10,
+                "probability_loss": 40,
+                "gain": 80,
+                "loss": 30,
+                "success": 0,
+                "probability_ambiguity": 50
+              },
+              {
+                "probability_win": 20,
+                "probability_loss": 50,
+                "gain": 100,
+                "loss": 20,
+                "success": 0,
+                "probability_ambiguity": 30
+              },
+              {
+                "probability_win": 20,
+                "probability_loss": 10,
+                "gain": 50,
+                "loss": 40,
+                "success": 1,
+                "probability_ambiguity": 70
+              },
+              {
+                "probability_win": 20,
+                "probability_loss": 0,
+                "gain": 90,
+                "loss": 40,
+                "success": 0,
+                "probability_ambiguity": 80
+              },
+              {
+                "probability_win": 60,
+                "probability_loss": 20,
+                "gain": 60,
+                "loss": 70,
+                "success": 0,
+                "probability_ambiguity": 20
+              }
+            ]
+          },
+          {
+            "sector_key": "IT_SECTOR",
+            "sector_length": 10,
+            "sector_text_key": "SECTOR_INSTRUCTION",
+            "sector_results_key_big": "SECTOR_DESCRIPTION_RESULT_INV_BIG",
+            "sector_results_key_less": "SECTOR_DESCRIPTION_RESULT_INV_LESS",
+            "sector_results_key_equal": "SECTOR_DESCRIPTION_RESULT_INV_EQUAL",
+            "trials": [
+              {
+                "probability_win": 20,
+                "probability_loss": 0,
+                "gain": 100,
+                "loss": 60,
+                "success": 1,
+                "probability_ambiguity": 80
+              },
+              {
+                "probability_win": 80,
+                "probability_loss": 10,
+                "gain": 30,
+                "loss": 100,
+                "success": 1,
+                "probability_ambiguity": 10
+              },
+              {
+                "probability_win": 10,
+                "probability_loss": 10,
+                "gain": 50,
+                "loss": 20,
+                "success": 0,
+                "probability_ambiguity": 80
+              },
+              {
+                "probability_win": 0,
+                "probability_loss": 10,
+                "gain": 70,
+                "loss": 30,
+                "success": 0,
+                "probability_ambiguity": 90
+              },
+              {
+                "probability_win": 20,
+                "probability_loss": 30,
+                "gain": 70,
+                "loss": 30,
+                "success": 0,
+                "probability_ambiguity": 50
+              },
+              {
+                "probability_win": 70,
+                "probability_loss": 0,
+                "gain": 30,
+                "loss": 70,
+                "success": 1,
+                "probability_ambiguity": 30
+              },
+              {
+                "probability_win": 70,
+                "probability_loss": 30,
+                "gain": 80,
+                "loss": 70,
+                "success": 1,
+                "probability_ambiguity": 0
+              },
+              {
+                "probability_win": 40,
+                "probability_loss": 0,
+                "gain": 80,
+                "loss": 100,
+                "success": 1,
+                "probability_ambiguity": 60
+              },
+              {
+                "probability_win": 40,
+                "probability_loss": 10,
+                "gain": 70,
+                "loss": 50,
+                "success": 0,
+                "probability_ambiguity": 50
+              },
+              {
+                "probability_win": 0,
+                "probability_loss": 10,
+                "gain": 70,
+                "loss": 40,
+                "success": 0,
+                "probability_ambiguity": 90
+              }
+            ]
+          },
+          {
+            "sector_key": "HEALTH_CARE_SECTOR",
+            "sector_length": 10,
+            "sector_text_key": "SECTOR_INSTRUCTION",
+            "sector_results_key_big": "SECTOR_DESCRIPTION_RESULT_INV_BIG",
+            "sector_results_key_less": "SECTOR_DESCRIPTION_RESULT_INV_LESS",
+            "sector_results_key_equal": "SECTOR_DESCRIPTION_RESULT_INV_EQUAL",
+            "trials": [
+              {
+                "probability_win": 30,
+                "probability_loss": 30,
+                "gain": 100,
+                "loss": 40,
+                "success": 1,
+                "probability_ambiguity": 40
+              },
+              {
+                "probability_win": 10,
+                "probability_loss": 0,
+                "gain": 70,
+                "loss": 20,
+                "success": 1,
+                "probability_ambiguity": 90
+              },
+              {
+                "probability_win": 40,
+                "probability_loss": 20,
+                "gain": 100,
+                "loss": 80,
+                "success": 1,
+                "probability_ambiguity": 40
+              },
+              {
+                "probability_win": 0,
+                "probability_loss": 20,
+                "gain": 50,
+                "loss": 10,
+                "success": 0,
+                "probability_ambiguity": 80
+              },
+              {
+                "probability_win": 40,
+                "probability_loss": 30,
+                "gain": 40,
+                "loss": 20,
+                "success": 1,
+                "probability_ambiguity": 30
+              },
+              {
+                "probability_win": 10,
+                "probability_loss": 10,
+                "gain": 60,
+                "loss": 30,
+                "success": 0,
+                "probability_ambiguity": 80
+              },
+              {
+                "probability_win": 70,
+                "probability_loss": 10,
+                "gain": 50,
+                "loss": 70,
+                "success": 1,
+                "probability_ambiguity": 20
+              },
+              {
+                "probability_win": 10,
+                "probability_loss": 60,
+                "gain": 60,
+                "loss": 10,
+                "success": 0,
+                "probability_ambiguity": 30
+              },
+              {
+                "probability_win": 30,
+                "probability_loss": 10,
+                "gain": 60,
+                "loss": 40,
+                "success": 0,
+                "probability_ambiguity": 60
+              },
+              {
+                "probability_win": 20,
+                "probability_loss": 40,
+                "gain": 90,
+                "loss": 60,
+                "success": 0,
+                "probability_ambiguity": 40
+              }
+            ]
+          },
+          {
+            "sector_key": "MANUFACTURING_SECTOR",
+            "sector_length": 10,
+            "sector_text_key": "SECTOR_INSTRUCTION",
+            "sector_results_key_big": "SECTOR_DESCRIPTION_RESULT_INV_BIG",
+            "sector_results_key_less": "SECTOR_DESCRIPTION_RESULT_INV_LESS",
+            "sector_results_key_equal": "SECTOR_DESCRIPTION_RESULT_INV_EQUAL",
+            "trials": [
+              {
+                "probability_win": 20,
+                "probability_loss": 20,
+                "gain": 100,
+                "loss": 50,
+                "success": 0,
+                "probability_ambiguity": 60
+              },
+              {
+                "probability_win": 40,
+                "probability_loss": 60,
+                "gain": 60,
+                "loss": 10,
+                "success": 0,
+                "probability_ambiguity": 0
+              },
+              {
+                "probability_win": 40,
+                "probability_loss": 30,
+                "gain": 80,
+                "loss": 50,
+                "success": 0,
+                "probability_ambiguity": 30
+              },
+              {
+                "probability_win": 30,
+                "probability_loss": 30,
+                "gain": 80,
+                "loss": 50,
+                "success": 1,
+                "probability_ambiguity": 40
+              },
+              {
+                "probability_win": 10,
+                "probability_loss": 20,
+                "gain": 70,
+                "loss": 20,
+                "success": 1,
+                "probability_ambiguity": 70
+              },
+              {
+                "probability_win": 30,
+                "probability_loss": 50,
+                "gain": 70,
+                "loss": 30,
+                "success": 0,
+                "probability_ambiguity": 20
+              },
+              {
+                "probability_win": 70,
+                "probability_loss": 10,
+                "gain": 50,
+                "loss": 100,
+                "success": 1,
+                "probability_ambiguity": 20
+              },
+              {
+                "probability_win": 40,
+                "probability_loss": 20,
+                "gain": 90,
+                "loss": 90,
+                "success": 1,
+                "probability_ambiguity": 40
+              },
+              {
+                "probability_win": 30,
+                "probability_loss": 70,
+                "gain": 40,
+                "loss": 10,
+                "success": 0,
+                "probability_ambiguity": 0
+              },
+              {
+                "probability_win": 80,
+                "probability_loss": 10,
+                "gain": 30,
+                "loss": 80,
+                "success": 1,
+                "probability_ambiguity": 10
+              }
+            ]
+          }
+        ],
+        "sub_type": "SELF",
+        "recorded_video_expiration_time_days": 30,
+        "start_title_key": "DM_START_TITLE",
+        "start_text_key": "DM_START_TXT",
+        "start_image_key": "BeforeRealTaskIcon.svg",
+        "end_title_key": "DM_TASK_COMPLETED_HEADER",
+        "end_text_key": "DM_TASK_COMPLETED_TEXT",
+        "end_image_key": "CompletedTaskIcon.svg"
+      }
+    },
+    {
+      "block_id": "break",
+      "section_number": 2,
+      "parameters": {
+        "skip_qc_time_min": 2,
+        "continue_time_min": 10,
+        "checkpoint_time_min": 20
+      }
+    },
+    {
+      "block_id": "combined_calibration",
+      "section_number": 3,
+      "parameters": {
+        "skip_qc_time_min": 2,
+        "check_skip_qc_logic": true
+      }
+    },
+    {
+      "block_id": "dynamic_info",
+      "section_number": 3,
+      "parameters": {
+        "components": [
+          {
+            "title_key": "INSTRUCTIONS_FOR_DM_TITLE",
+            "text_key": "DM_TASK_2PART_INSTRUCTIONS",
+            "image_key": "SecondStageInstruction.svg"
+          }
+        ]
+      }
+    },
+    {
+      "block_id": "decision_making",
+      "section_number": 3,
+      "parameters": {
+        "inheritance": 10000,
+        "currency": "$",
+        "dimension_key": {
+          "uncertainty": "DM_TASK_UNCERTAINTY",
+          "gain": "DM_TASK_GAIN",
+          "loss": "DM_TASK_LOSS",
+          "success": "DM_TASK_SUCCESS",
+          "failure": "DM_TASK_FAILURE"
+        },
+        "decision_keys": {
+          "invest": "INVEST_BUTTON",
+          "no_invest": "DO_NOT_INVEST_BUTTON"
+        },
+        "investment_result_keys": {
+          "invested": "INVESTED",
+          "not_invested": "NOT_INVESTED",
+          "trials_name": "COMPANY",
+          "sector_name": "SECTOR_RESULT"
+        },
+        "components": [
+          {
+            "sector_key": "ENTERTAINMENT_SECTOR",
+            "sector_length": 10,
+            "sector_text_key": "SECTOR_INSTRUCTION",
+            "sector_results_key_big": "SECTOR_DESCRIPTION_RESULT_INV_BIG",
+            "sector_results_key_less": "SECTOR_DESCRIPTION_RESULT_INV_LESS",
+            "sector_results_key_equal": "SECTOR_DESCRIPTION_RESULT_INV_EQUAL",
+            "trials": [
+              {
+                "probability_win": 30,
+                "probability_loss": 20,
+                "gain": 90,
+                "loss": 70,
+                "success": 0,
+                "probability_ambiguity": 50
+              },
+              {
+                "probability_win": 20,
+                "probability_loss": 50,
+                "gain": 100,
+                "loss": 20,
+                "success": 0,
+                "probability_ambiguity": 30
+              },
+              {
+                "probability_win": 10,
+                "probability_loss": 10,
+                "gain": 60,
+                "loss": 30,
+                "success": 1,
+                "probability_ambiguity": 80
+              },
+              {
+                "probability_win": 30,
+                "probability_loss": 0,
+                "gain": 80,
+                "loss": 50,
+                "success": 1,
+                "probability_ambiguity": 70
+              },
+              {
+                "probability_win": 40,
+                "probability_loss": 10,
+                "gain": 70,
+                "loss": 50,
+                "success": 1,
+                "probability_ambiguity": 50
+              },
+              {
+                "probability_win": 30,
+                "probability_loss": 70,
+                "gain": 40,
+                "loss": 10,
+                "success": 0,
+                "probability_ambiguity": 0
+              },
+              {
+                "probability_win": 0,
+                "probability_loss": 10,
+                "gain": 70,
+                "loss": 30,
+                "success": 1,
+                "probability_ambiguity": 90
+              },
+              {
+                "probability_win": 50,
+                "probability_loss": 0,
+                "gain": 30,
+                "loss": 70,
+                "success": 1,
+                "probability_ambiguity": 50
+              },
+              {
+                "probability_win": 40,
+                "probability_loss": 20,
+                "gain": 100,
+                "loss": 80,
+                "success": 1,
+                "probability_ambiguity": 40
+              },
+              {
+                "probability_win": 10,
+                "probability_loss": 20,
+                "gain": 70,
+                "loss": 20,
+                "success": 0,
+                "probability_ambiguity": 70
+              }
+            ]
+          },
+          {
+            "sector_key": "CONSTRUCTION_SECTOR",
+            "sector_length": 10,
+            "sector_text_key": "SECTOR_INSTRUCTION",
+            "sector_results_key_big": "SECTOR_DESCRIPTION_RESULT_INV_BIG",
+            "sector_results_key_less": "SECTOR_DESCRIPTION_RESULT_INV_LESS",
+            "sector_results_key_equal": "SECTOR_DESCRIPTION_RESULT_INV_EQUAL",
+            "trials": [
+              {
+                "probability_win": 40,
+                "probability_loss": 50,
+                "gain": 100,
+                "loss": 30,
+                "success": 1,
+                "probability_ambiguity": 10
+              },
+              {
+                "probability_win": 80,
+                "probability_loss": 10,
+                "gain": 30,
+                "loss": 100,
+                "success": 1,
+                "probability_ambiguity": 10
+              },
+              {
+                "probability_win": 10,
+                "probability_loss": 20,
+                "gain": 60,
+                "loss": 40,
+                "success": 1,
+                "probability_ambiguity": 70
+              },
+              {
+                "probability_win": 40,
+                "probability_loss": 30,
+                "gain": 80,
+                "loss": 50,
+                "success": 0,
+                "probability_ambiguity": 30
+              },
+              {
+                "probability_win": 70,
+                "probability_loss": 0,
+                "gain": 30,
+                "loss": 70,
+                "success": 0,
+                "probability_ambiguity": 30
+              },
+              {
+                "probability_win": 10,
+                "probability_loss": 30,
+                "gain": 50,
+                "loss": 20,
+                "success": 1,
+                "probability_ambiguity": 60
+              },
+              {
+                "probability_win": 50,
+                "probability_loss": 50,
+                "gain": 70,
+                "loss": 70,
+                "success": 0,
+                "probability_ambiguity": 0
+              },
+              {
+                "probability_win": 0,
+                "probability_loss": 30,
+                "gain": 80,
+                "loss": 30,
+                "success": 1,
+                "probability_ambiguity": 70
+              },
+              {
+                "probability_win": 50,
+                "probability_loss": 40,
+                "gain": 70,
+                "loss": 60,
+                "success": 0,
+                "probability_ambiguity": 10
+              },
+              {
+                "probability_win": 30,
+                "probability_loss": 10,
+                "gain": 60,
+                "loss": 40,
+                "success": 0,
+                "probability_ambiguity": 60
+              }
+            ]
+          }
+        ],
+        "sub_type": "OTHER",
+        "recorded_video_expiration_time_days": 30,
+        "start_title_key": "DM_START_TITLE",
+        "start_text_key": "DM_START_TXT",
+        "start_image_key": "BeforeRealTaskIcon.svg",
+        "end_title_key": "DM_TASK_COMPLETED_HEADER",
+        "end_text_key": "DM_TASK_COMPLETED_TEXT",
+        "end_image_key": "CompletedTaskIcon.svg"
+      }
+    },
+    {
+      "block_id": "dynamic_info",
+      "section_number": 4,
+      "parameters": {
+        "components": [
+          {
+            "title_key": "SELF_ASSESSMENT_HEADER_INSTRUCTION",
+            "text_key": "SELF_ASSESSMENT_INSTRUCTION_TEXT",
+            "image_key": "BeforeRealTaskIcon.svg"
+          }
+        ]
+      }
+    },
+    {
+      "block_id": "self_assessment",
+      "section_number": 4,
+      "parameters": {}
+    },
+    {
+      "block_id": "voluntary_information",
+      "section_number": 5,
+      "parameters": {
+        "question_keys": {
+          "VOLUNTARY_QA1": [
+            "VOLUNTARY_EYEQ_Q1A1",
+            "VOLUNTARY_EYEQ_Q1A2",
+            "VOLUNTARY_EYEQ_Q1A3",
+            "VOLUNTARY_EYEQ_Q1A4",
+            "VOLUNTARY_EYEQ_Q1A5",
+            "VOLUNTARY_DEFAULT_ANSWER"
+          ],
+          "VOLUNTARY_QA2": [
+            "VOLUNTARY_QA2_ANSWER1",
+            "VOLUNTARY_QA2_ANSWER2",
+            "VOLUNTARY_QA2_ANSWER3",
+            "VOLUNTARY_QA2_ANSWER4",
+            "VOLUNTARY_QA2_ANSWER5",
+            "VOLUNTARY_QA2_ANSWER6",
+            "VOLUNTARY_QA2_ANSWER7",
+            "VOLUNTARY_DEFAULT_ANSWER"
+          ],
+          "VOLUNTARY_QA3": [
+            "VOLUNTARY_QA3_ANSWER1",
+            "VOLUNTARY_QA3_ANSWER2",
+            "VOLUNTARY_QA3_ANSWER3",
+            "VOLUNTARY_QA3_ANSWER4",
+            "VOLUNTARY_QA3_ANSWER5",
+            "VOLUNTARY_QA3_ANSWER6",
+            "VOLUNTARY_QA3_ANSWER7",
+            "VOLUNTARY_QA3_ANSWER8",
+            "VOLUNTARY_QA3_ANSWER9",
+            "VOLUNTARY_QA3_ANSWER10",
+            "VOLUNTARY_QA3_ANSWER11",
+            "VOLUNTARY_QA3_ANSWER12",
+            "VOLUNTARY_QA3_ANSWER13",
+            "VOLUNTARY_QA3_ANSWER14",
+            "VOLUNTARY_QA3_ANSWER15",
+            "VOLUNTARY_QA3_ANSWER16",
+            "VOLUNTARY_QA3_ANSWER17",
+            "VOLUNTARY_QA3_ANSWER18",
+            "VOLUNTARY_QA3_ANSWER19",
+            "VOLUNTARY_QA3_ANSWER20",
+            "VOLUNTARY_QA3_ANSWER21",
+            "VOLUNTARY_QA3_ANSWER22",
+            "VOLUNTARY_QA3_ANSWER23",
+            "VOLUNTARY_QA3_ANSWER24",
+            "VOLUNTARY_QA3_ANSWER25",
+            "VOLUNTARY_QA3_ANSWER26",
+            "VOLUNTARY_DEFAULT_ANSWER"
+          ],
+          "VOLUNTARY_QA4": [
+            "VOLUNTARY_EYEQ_Q4A1",
+            "VOLUNTARY_EYEQ_Q4A2",
+            "VOLUNTARY_EYEQ_Q4A3",
+            "VOLUNTARY_EYEQ_Q4A4",
+            "VOLUNTARY_EYEQ_Q4A5",
+            "VOLUNTARY_DEFAULT_ANSWER"
+          ],
+          "VOLUNTARY_QA5": [
+            "VOLUNTARY_QA5_ANSWER1",
+            "VOLUNTARY_QA5_ANSWER2",
+            "VOLUNTARY_QA5_ANSWER3",
+            "VOLUNTARY_DEFAULT_ANSWER"
+          ],
+          "VOLUNTARY_QA6": [
+            "VOLUNTARY_EYEQ_Q6A1",
+            "VOLUNTARY_EYEQ_Q6A2",
+            "VOLUNTARY_EYEQ_Q6A3",
+            "VOLUNTARY_EYEQ_Q6A4",
+            "VOLUNTARY_EYEQ_Q6A5",
+            "VOLUNTARY_EYEQ_Q6A6",
+            "VOLUNTARY_DEFAULT_ANSWER"
+          ],
+          "VOLUNTARY_QA7": [
+            "VOLUNTARY_EYEQ_Q7A1",
+            "VOLUNTARY_EYEQ_Q7A2",
+            "VOLUNTARY_EYEQ_Q7A3",
+            "VOLUNTARY_EYEQ_Q7A4",
+            "VOLUNTARY_EYEQ_Q7A5",
+            "VOLUNTARY_DEFAULT_ANSWER"
+          ],
+          "VOLUNTARY_QA8": [
+            "VOLUNTARY_QA8_ANSWER1",
+            "VOLUNTARY_QA8_ANSWER2",
+            "VOLUNTARY_QA8_ANSWER3",
+            "VOLUNTARY_DEFAULT_ANSWER"
+          ],
+          "VOLUNTARY_QA9": [
+            "VOLUNTARY_QA9_ANSWER1",
+            "VOLUNTARY_QA9_ANSWER2",
+            "VOLUNTARY_QA9_ANSWER3",
+            "VOLUNTARY_QA9_ANSWER4",
+            "VOLUNTARY_QA9_ANSWER5",
+            "VOLUNTARY_QA9_ANSWER6",
+            "VOLUNTARY_QA9_ANSWER7",
+            "VOLUNTARY_QA9_ANSWER8",
+            "VOLUNTARY_QA9_ANSWER9",
+            "VOLUNTARY_QA9_ANSWER10",
+            "VOLUNTARY_QA9_ANSWER11",
+            "VOLUNTARY_QA9_ANSWER12",
+            "VOLUNTARY_QA9_ANSWER13",
+            "VOLUNTARY_QA9_ANSWER14",
+            "VOLUNTARY_QA9_ANSWER15",
+            "VOLUNTARY_QA9_ANSWER16",
+            "VOLUNTARY_QA9_ANSWER17",
+            "VOLUNTARY_QA9_ANSWER18",
+            "VOLUNTARY_QA9_ANSWER19",
+            "VOLUNTARY_QA9_ANSWER20",
+            "VOLUNTARY_QA9_ANSWER21",
+            "VOLUNTARY_QA9_ANSWER22",
+            "VOLUNTARY_QA9_ANSWER23",
+            "VOLUNTARY_QA9_ANSWER24",
+            "VOLUNTARY_QA9_ANSWER25",
+            "VOLUNTARY_QA9_ANSWER26",
+            "VOLUNTARY_QA9_ANSWER27",
+            "VOLUNTARY_QA9_ANSWER28",
+            "VOLUNTARY_QA9_ANSWER29",
+            "VOLUNTARY_QA9_ANSWER30",
+            "VOLUNTARY_QA9_ANSWER31",
+            "VOLUNTARY_QA9_ANSWER32",
+            "VOLUNTARY_QA9_ANSWER33",
+            "VOLUNTARY_QA9_ANSWER34",
+            "VOLUNTARY_QA9_ANSWER35",
+            "VOLUNTARY_QA9_ANSWER36",
+            "VOLUNTARY_QA9_ANSWER37",
+            "VOLUNTARY_QA9_ANSWER38",
+            "VOLUNTARY_QA9_ANSWER39",
+            "VOLUNTARY_QA9_ANSWER40",
+            "VOLUNTARY_QA9_ANSWER41",
+            "VOLUNTARY_QA9_ANSWER42",
+            "VOLUNTARY_QA9_ANSWER43",
+            "VOLUNTARY_QA9_ANSWER44",
+            "VOLUNTARY_QA9_ANSWER45",
+            "VOLUNTARY_QA9_ANSWER46",
+            "VOLUNTARY_QA9_ANSWER47",
+            "VOLUNTARY_QA9_ANSWER48",
+            "VOLUNTARY_QA9_ANSWER49",
+            "VOLUNTARY_QA9_ANSWER50",
+            "VOLUNTARY_QA9_ANSWER51",
+            "VOLUNTARY_QA9_ANSWER52",
+            "VOLUNTARY_QA9_ANSWER53",
+            "VOLUNTARY_QA9_ANSWER54",
+            "VOLUNTARY_QA9_ANSWER55",
+            "VOLUNTARY_QA9_ANSWER56",
+            "VOLUNTARY_QA9_ANSWER57",
+            "VOLUNTARY_QA9_ANSWER58",
+            "VOLUNTARY_QA9_ANSWER59",
+            "VOLUNTARY_QA9_ANSWER60",
+            "VOLUNTARY_QA9_ANSWER61",
+            "VOLUNTARY_QA9_ANSWER62",
+            "VOLUNTARY_QA9_ANSWER63",
+            "VOLUNTARY_QA9_ANSWER64",
+            "VOLUNTARY_QA9_ANSWER65",
+            "VOLUNTARY_QA9_ANSWER66",
+            "VOLUNTARY_QA9_ANSWER67",
+            "VOLUNTARY_QA9_ANSWER68",
+            "VOLUNTARY_QA9_ANSWER69",
+            "VOLUNTARY_QA9_ANSWER70",
+            "VOLUNTARY_QA9_ANSWER71",
+            "VOLUNTARY_QA9_ANSWER72",
+            "VOLUNTARY_QA9_ANSWER73",
+            "VOLUNTARY_QA9_ANSWER74",
+            "VOLUNTARY_QA9_ANSWER75",
+            "VOLUNTARY_QA9_ANSWER76",
+            "VOLUNTARY_QA9_ANSWER77",
+            "VOLUNTARY_QA9_ANSWER78",
+            "VOLUNTARY_QA9_ANSWER79",
+            "VOLUNTARY_QA9_ANSWER80",
+            "VOLUNTARY_QA9_ANSWER81",
+            "VOLUNTARY_QA9_ANSWER82",
+            "VOLUNTARY_QA9_ANSWER83",
+            "VOLUNTARY_QA9_ANSWER84",
+            "VOLUNTARY_QA9_ANSWER85",
+            "VOLUNTARY_QA9_ANSWER86",
+            "VOLUNTARY_QA9_ANSWER87",
+            "VOLUNTARY_QA9_ANSWER88",
+            "VOLUNTARY_QA9_ANSWER89",
+            "VOLUNTARY_QA9_ANSWER90",
+            "VOLUNTARY_QA9_ANSWER91",
+            "VOLUNTARY_QA9_ANSWER92",
+            "VOLUNTARY_QA9_ANSWER93",
+            "VOLUNTARY_QA9_ANSWER94",
+            "VOLUNTARY_QA9_ANSWER95",
+            "VOLUNTARY_QA9_ANSWER96",
+            "VOLUNTARY_QA9_ANSWER97",
+            "VOLUNTARY_QA9_ANSWER98",
+            "VOLUNTARY_QA9_ANSWER99",
+            "VOLUNTARY_QA9_ANSWER100",
+            "VOLUNTARY_QA9_ANSWER101",
+            "VOLUNTARY_QA9_ANSWER102",
+            "VOLUNTARY_QA9_ANSWER103",
+            "VOLUNTARY_QA9_ANSWER104",
+            "VOLUNTARY_QA9_ANSWER105",
+            "VOLUNTARY_QA9_ANSWER106",
+            "VOLUNTARY_QA9_ANSWER107",
+            "VOLUNTARY_QA9_ANSWER108",
+            "VOLUNTARY_QA9_ANSWER109",
+            "VOLUNTARY_QA9_ANSWER110",
+            "VOLUNTARY_QA9_ANSWER111",
+            "VOLUNTARY_QA9_ANSWER112",
+            "VOLUNTARY_QA9_ANSWER113",
+            "VOLUNTARY_QA9_ANSWER114",
+            "VOLUNTARY_QA9_ANSWER115",
+            "VOLUNTARY_QA9_ANSWER116",
+            "VOLUNTARY_QA9_ANSWER117",
+            "VOLUNTARY_QA9_ANSWER118",
+            "VOLUNTARY_QA9_ANSWER119",
+            "VOLUNTARY_QA9_ANSWER120",
+            "VOLUNTARY_QA9_ANSWER121",
+            "VOLUNTARY_QA9_ANSWER122",
+            "VOLUNTARY_QA9_ANSWER123",
+            "VOLUNTARY_QA9_ANSWER124",
+            "VOLUNTARY_QA9_ANSWER125",
+            "VOLUNTARY_QA9_ANSWER126",
+            "VOLUNTARY_QA9_ANSWER127",
+            "VOLUNTARY_QA9_ANSWER128",
+            "VOLUNTARY_QA9_ANSWER129",
+            "VOLUNTARY_QA9_ANSWER130",
+            "VOLUNTARY_QA9_ANSWER131",
+            "VOLUNTARY_QA9_ANSWER132",
+            "VOLUNTARY_QA9_ANSWER133",
+            "VOLUNTARY_QA9_ANSWER134",
+            "VOLUNTARY_QA9_ANSWER135",
+            "VOLUNTARY_QA9_ANSWER136",
+            "VOLUNTARY_QA9_ANSWER137",
+            "VOLUNTARY_QA9_ANSWER138",
+            "VOLUNTARY_QA9_ANSWER139",
+            "VOLUNTARY_QA9_ANSWER140",
+            "VOLUNTARY_QA9_ANSWER141",
+            "VOLUNTARY_QA9_ANSWER142",
+            "VOLUNTARY_QA9_ANSWER143",
+            "VOLUNTARY_QA9_ANSWER144",
+            "VOLUNTARY_QA9_ANSWER145",
+            "VOLUNTARY_QA9_ANSWER146",
+            "VOLUNTARY_QA9_ANSWER147",
+            "VOLUNTARY_QA9_ANSWER148",
+            "VOLUNTARY_QA9_ANSWER149",
+            "VOLUNTARY_QA9_ANSWER150",
+            "VOLUNTARY_QA9_ANSWER151",
+            "VOLUNTARY_QA9_ANSWER152",
+            "VOLUNTARY_QA9_ANSWER153",
+            "VOLUNTARY_QA9_ANSWER154",
+            "VOLUNTARY_QA9_ANSWER155",
+            "VOLUNTARY_QA9_ANSWER156",
+            "VOLUNTARY_QA9_ANSWER157",
+            "VOLUNTARY_QA9_ANSWER158",
+            "VOLUNTARY_QA9_ANSWER159",
+            "VOLUNTARY_QA9_ANSWER160",
+            "VOLUNTARY_QA9_ANSWER161",
+            "VOLUNTARY_QA9_ANSWER162",
+            "VOLUNTARY_QA9_ANSWER163",
+            "VOLUNTARY_QA9_ANSWER164",
+            "VOLUNTARY_QA9_ANSWER165",
+            "VOLUNTARY_QA9_ANSWER166",
+            "VOLUNTARY_QA9_ANSWER167",
+            "VOLUNTARY_QA9_ANSWER168",
+            "VOLUNTARY_QA9_ANSWER169",
+            "VOLUNTARY_QA9_ANSWER170",
+            "VOLUNTARY_QA9_ANSWER171",
+            "VOLUNTARY_QA9_ANSWER172",
+            "VOLUNTARY_QA9_ANSWER173",
+            "VOLUNTARY_QA9_ANSWER174",
+            "VOLUNTARY_QA9_ANSWER175",
+            "VOLUNTARY_QA9_ANSWER176",
+            "VOLUNTARY_QA9_ANSWER177",
+            "VOLUNTARY_QA9_ANSWER178",
+            "VOLUNTARY_QA9_ANSWER179",
+            "VOLUNTARY_QA9_ANSWER180",
+            "VOLUNTARY_QA9_ANSWER181",
+            "VOLUNTARY_QA9_ANSWER182",
+            "VOLUNTARY_QA9_ANSWER183",
+            "VOLUNTARY_QA9_ANSWER184",
+            "VOLUNTARY_QA9_ANSWER185",
+            "VOLUNTARY_QA9_ANSWER186",
+            "VOLUNTARY_QA9_ANSWER187",
+            "VOLUNTARY_QA9_ANSWER188",
+            "VOLUNTARY_QA9_ANSWER189",
+            "VOLUNTARY_QA9_ANSWER190",
+            "VOLUNTARY_QA9_ANSWER191",
+            "VOLUNTARY_QA9_ANSWER192",
+            "VOLUNTARY_QA9_ANSWER193",
+            "VOLUNTARY_QA9_ANSWER194",
+            "VOLUNTARY_QA9_ANSWER195",
+            "VOLUNTARY_DEFAULT_ANSWER"
+          ],
+          "VOLUNTARY_QA10": [
+            "VOLUNTARY_QA10_ANSWER1",
+            "VOLUNTARY_QA10_ANSWER2",
+            "VOLUNTARY_DEFAULT_ANSWER"
+          ],
+          "VOLUNTARY_QA11": [
+            "VOLUNTARY_QA11_ANSWER1",
+            "VOLUNTARY_QA11_ANSWER2",
+            "VOLUNTARY_QA11_ANSWER3",
+            "VOLUNTARY_QA11_ANSWER4",
+            "VOLUNTARY_QA11_ANSWER5",
+            "VOLUNTARY_QA11_ANSWER6",
+            "VOLUNTARY_QA11_ANSWER7",
+            "VOLUNTARY_QA11_ANSWER8",
+            "VOLUNTARY_QA11_ANSWER9",
+            "VOLUNTARY_QA11_ANSWER10",
+            "VOLUNTARY_QA11_ANSWER11",
+            "VOLUNTARY_QA11_ANSWER12",
+            "VOLUNTARY_QA11_ANSWER13",
+            "VOLUNTARY_QA11_ANSWER14",
+            "VOLUNTARY_QA11_ANSWER15",
+            "VOLUNTARY_QA11_ANSWER16",
+            "VOLUNTARY_QA11_ANSWER17",
+            "VOLUNTARY_QA11_ANSWER18",
+            "VOLUNTARY_QA11_ANSWER19",
+            "VOLUNTARY_QA11_ANSWER20",
+            "VOLUNTARY_DEFAULT_ANSWER"
+          ],
+          "VOLUNTARY_QA12": [
+            "VOLUNTARY_QA12_ANSWER1",
+            "VOLUNTARY_QA12_ANSWER2",
+            "VOLUNTARY_QA12_ANSWER3",
+            "VOLUNTARY_DEFAULT_ANSWER"
+          ]
+        },
+        "title_key": "VOLUNTARY_QA_INSTRUCTIONS_HEADING",
+        "text_key": "VOLUNTARY_QA_INSTRUCTIONS_TEXT",
+        "image_key": "VoluntaryInfoInstructionsIcon.svg"
+      }
+    },
+    {
+      "block_id": "assessment_completed",
+      "section_number": 5,
+      "parameters": {}
+    }
+  ]
+}
