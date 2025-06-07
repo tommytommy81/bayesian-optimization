@@ -614,11 +614,12 @@ def MLS_wrapper(df, x0, distro_estimates):
         probability = calc_prob_invest_data(invest,utility,tau, error)
         return probability
 
-
+    
+    
     def log_likelihood_subject(param_list, sub_df, distro_estimates):
         ''' This is the functions that is going to minimized'''
         # initialize and collect
-        FACTOR = 1/100
+        FACTOR = 1
         df = sub_df.copy(True)
         parameters = {}
         lognormal_values = {}
